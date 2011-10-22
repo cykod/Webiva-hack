@@ -49,6 +49,8 @@ class Hack::PageRenderer < ParagraphRenderer
 
     set_title(@hack_idea.title) if @hack_idea
 
+    set_page_connection(:content_id, ['HackIdea',@hack_idea.id] ) if @hack_idea
+
     # Any instance variables will be sent in the data hash to the 
     # hack_page_rate_feature automatically
     #
