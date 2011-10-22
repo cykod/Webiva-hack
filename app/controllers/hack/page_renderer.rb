@@ -11,15 +11,20 @@ class Hack::PageRenderer < ParagraphRenderer
 
     session[:except] ||= []
 
-    @hack_idea = HackIdea.random_idea(session[:except])
+    if ajax? && params[:hack_idea_id]
+      @hack_idea = HackIdea.find(params[:hack_idea_id])
+      @hack_idea.rate(myself,session[:domain_log_session][:id],params[:points].to_i > 0 ? 1 : -1)
+      @hack_idea.reload
 
-    session[:except] = [] if !@hack_idea
-    @hack_idea ||= HackIdea.random_idea(session[:except])
+    else 
+      @hack_idea = HackIdea.random_idea(session[:except])
 
-    session[:except] << @hack_idea.id if @hack_idea
-    # Any instance variables will be sent in the data hash to the 
-    # hack_page_rate_feature automatically
-    #
+      session[:except] = [] if !@hack_idea
+      @hack_idea ||= HackIdea.random_idea(session[:except])
+
+      session[:except] << @hack_idea.id if @hack_idea
+    end
+
     @vote = HackVote.fetch(@hack_idea.id,myself,session[:domain_log_session][:id])
   
     require_component_js

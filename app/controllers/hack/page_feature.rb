@@ -61,7 +61,7 @@ class Hack::PageFeature < ParagraphFeature
       c.link_tag('hack_idea:rate_up') do |t|
 
         { :href => 'javascript:void(0);',
-          :onclick => "Hack.rate_up(#{t.locals.hack_idea.id},this,'#{url_for :controller => '/hack/page', :action => 'rate_up'}');"
+          :onclick => "Hack.rate_up(#{t.locals.hack_idea.id},'#{ajax_url}');"
         }
 
       end
@@ -69,7 +69,7 @@ class Hack::PageFeature < ParagraphFeature
       c.link_tag('hack_idea:rate_down') do |t|
 
         { :href => 'javascript:void(0);',
-          :onclick => "Hack.rate_down(#{t.locals.hack_idea.id},this,'#{url_for :controller => '/hack/page', :action => 'rate_down'}');"
+          :onclick => "Hack.rate_down(#{t.locals.hack_idea.id},'#{ajax_url}');"
         }
 
       end
