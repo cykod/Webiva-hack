@@ -46,7 +46,7 @@ class Hack::PageFeature < ParagraphFeature
   def hack_details(c,data) 
     c.h_tag('hack_idea:title') { |t|t.locals.hack_idea.title }
     c.value_tag('hack_idea:description') { |t| simple_format(h(t.locals.hack_idea.description)) }
-    c.value_tag('hack_idea:desc_short') { |t| simple_format(h(truncate(t.locals.hack_idea.description, :length => (t.attr['length'] || 200).to_i))) }
+    c.value_tag('hack_idea:desc_short') { |t| h(truncate(t.locals.hack_idea.description, :length => (t.attr['length'] || 200).to_i)) }
     
 
       c.image_tag('hack_idea:image') { |t| t.locals.hack_idea.image }
