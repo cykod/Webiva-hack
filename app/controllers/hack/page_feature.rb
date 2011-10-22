@@ -55,7 +55,7 @@ class Hack::PageFeature < ParagraphFeature
       c.value_tag('hack_idea:votes') { |t| t.locals.hack_idea.votes }
       c.value_tag('hack_idea:score') { |t| t.locals.hack_idea.score }
 
-      c.link_tag('hack_idea:') { |t| Configuration.link("/view/#{t.locals.hack_idea.permalink}") }
+      c.link_tag('hack_idea:') { |t| Configuration.link("/hack/#{t.locals.hack_idea.permalink}") }
 
 
       c.link_tag('hack_idea:rate_up') do |t|
