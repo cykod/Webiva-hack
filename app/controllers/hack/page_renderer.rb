@@ -3,8 +3,9 @@ class Hack::PageRenderer < ParagraphRenderer
   features '/hack/page_feature'
 
   paragraph :rate, :ajax => true
-  paragraph :view
+  paragraph :view, :ajax => true
   paragraph :submit
+  paragraph :list
 
   def rate
     @options = paragraph_options :rate
@@ -36,6 +37,11 @@ class Hack::PageRenderer < ParagraphRenderer
 
     conn_type, conn_id = page_connection 
 
+    if ajax? && params[:hack_idea_id]
+      @hack_idea = HackIdea.find(params[:hack_idea_id])
+      @hack_idea.rate(myself,session[:domain_log_session][:id],params[:points].to_i > 0 ? 1 : -1)
+    end
+
     @hack_idea = HackIdea.find_by_permalink(conn_id)
     @hack_idea ||= HackIdea.first if editor?
 
@@ -62,6 +68,12 @@ class Hack::PageRenderer < ParagraphRenderer
   
     require_component_js
     render_paragraph :feature => :hack_page_submit
+  end
+
+  def list
+    @hack_ideas = HackIdea.find(:all,:order => 'score DESC',:limit => 10)
+
+    render_paragraph :feature => :hack_page_list
   end
 
 

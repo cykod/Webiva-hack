@@ -6,7 +6,7 @@ class Hack::PageController < ParagraphController
   editor_for :view, :name => "View", :feature => :hack_page_view, :inputs => [ [ :view, "url", :path ]]
   editor_for :submit, :name => "Submit", :feature => :hack_page_submit
 
-#  editor_for :list, :name => 'List', :feature => :hack_page_list, :no_options => true
+ editor_for :list, :name => 'List', :feature => :hack_page_list, :no_options => true
 
   user_actions :rate_up, :rate_down,:track
 

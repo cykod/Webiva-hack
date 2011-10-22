@@ -110,4 +110,19 @@ class Hack::PageFeature < ParagraphFeature
     end
   end
 
+  feature :hack_page_list , :default_feature => <<-FEATURE
+      <ul>
+      <cms:hack_idea>
+      <li><cms:link><cms:title/></cms:link></li>
+      </cms:hack_idea>
+      </ul>
+  FEATURE
+
+  def hack_page_list_feature(data)
+    webiva_feature(:hack_page_list,data) do |c|
+      c.loop_tag('hack_idea') { |t| data[:hack_ideas] }
+      hack_details(c,data)
+    end
+  end
+
 end
