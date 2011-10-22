@@ -54,7 +54,7 @@ class Hack::PageRenderer < ParagraphRenderer
     # Any instance variables will be sent in the data hash to the 
     # hack_page_rate_feature automatically
     #
-    @vote = HackVote.fetch(@hack_idea.id,myself,session[:domain_log_session][:id])
+    @vote = HackVote.fetch(@hack_idea.id,myself,session[:domain_log_session] && session[:domain_log_session][:id])
   
     require_component_js
     render_paragraph :feature => :hack_page_view
