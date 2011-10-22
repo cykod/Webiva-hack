@@ -48,6 +48,8 @@ class Hack::PageFeature < ParagraphFeature
     c.value_tag('hack_idea:description') { |t| simple_format(h(t.locals.hack_idea.description)) }
     c.value_tag('hack_idea:desc_short') { |t| h(truncate(t.locals.hack_idea.description, :length => (t.attr['length'] || 200).to_i)) }
     
+    c.expansion_tag('hack_idea:details') { |t| t.locals.hack_idea.length > (t.attr['length'] || 200).to_i }
+    
 
       c.image_tag('hack_idea:image') { |t| t.locals.hack_idea.image }
       c.value_tag('hack_idea:votes') { |t| t.locals.hack_idea.votes }
