@@ -38,8 +38,8 @@ class Hack::PageFeature < ParagraphFeature
 
       end
 
-      c.expansion_tag('hack_idea:up') { |t| data[:vote] && data[:vote].value > 0 }
-      c.expansion_tag('hack_idea:down') { |t| data[:vote] && data[:vote].value < 0 }
+      c.expansion_tag('hack_idea:up') { |t| data[:vote] && data[:vote].value.to_i > 0 }
+      c.expansion_tag('hack_idea:down') { |t| data[:vote] && data[:vote].value.to_i < 0 }
     end
   end
 
