@@ -63,6 +63,12 @@ class Hack::PageFeature < ParagraphFeature
     c.h_tag('hack_idea:title') { |t|t.locals.hack_idea.title }
     c.value_tag('hack_idea:description') { |t| simple_format(h(t.locals.hack_idea.description)) }
     
+
+      c.image_tag('hack_idea:image') { |t| t.locals.hack_idea.image }
+      c.value_tag('hack_idea:votes') { |t| t.locals.hack_idea.votes }
+      c.value_tag('hack_idea:score') { |t| t.locals.hack_idea.score }
+
+      c.link_tag('hack_idea:') { |t| "/view/#{t.locals.hack_idea.permalink}" }
   end
 
   feature :hack_page_submit, :default_feature => <<-FEATURE

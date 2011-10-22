@@ -29,8 +29,15 @@ class Hack::PageRenderer < ParagraphRenderer
   def view
     @options = paragraph_options :view
 
+    conn_type, conn_id = page_connection 
+
+    @hack_idea = HackIdea.find_by_permalink(conn_id)
+    @hack_idea ||= HackIdea.first if editor?
+
     # Any instance variables will be sent in the data hash to the 
-    # hack_page_view_feature automatically
+    # hack_page_rate_feature automatically
+    #
+    @vote = HackVote.fetch(@hack_idea.id,myself,session[:domain_log_session][:id])
   
     require_component_js
     render_paragraph :feature => :hack_page_view

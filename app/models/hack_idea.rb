@@ -5,6 +5,8 @@ class HackIdea < DomainModel
   before_save :generate_permalink
   has_many :hack_votes 
 
+  has_domain_file :image_id
+
   def generate_permalink
     self.permalink = generate_url(:permalink,self.title.to_s.strip)
   end
