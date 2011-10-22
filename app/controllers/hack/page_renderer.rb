@@ -26,7 +26,7 @@ class Hack::PageRenderer < ParagraphRenderer
       session[:except] << @hack_idea.id if @hack_idea
     end
 
-    @vote = HackVote.fetch(@hack_idea.id,myself,session[:domain_log_session][:id])
+    @vote = HackVote.fetch(@hack_idea.id,myself,session[:domain_log_session] && session[:domain_log_session][:id])
   
     require_component_js
     render_paragraph :feature => :hack_page_rate
