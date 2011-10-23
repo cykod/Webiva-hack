@@ -3,7 +3,7 @@ class Hack::ManageController < ModuleController
 
   component_info 'Hack'
 
-  permit 'manage_manage'
+  permit 'hack_manage'
 
   cms_admin_paths 'content', 
                   'Hack Ideas' => { :action => 'index' }
