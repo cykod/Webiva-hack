@@ -42,6 +42,15 @@ class HackVote < DomainModel
     vote
   end
 
+  def self.user_votes(user,domain_log_session_id)
+    return [] if !user.id && domain_log_session_id.blank?
+    if user.id
+      HackVote.find(:all,:conditions => { :end_user_id => user.id }).map(&:hack_idea_id)
+    else
+      HackVote.find(:all,:conditions => { :domain_log_session_id => domain_log_session_id }).map(&:hack_idea_id)
+    end
+  end
+
     def update_hack_idea
     self.hack_idea.recalculate!
   end

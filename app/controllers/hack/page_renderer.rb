@@ -10,11 +10,14 @@ class Hack::PageRenderer < ParagraphRenderer
   def rate
     @options = paragraph_options :rate
 
+    if !session[:except]
+      session[:except] = HackVote.user_votes(myself,cookies[:v])
+    end
     session[:except] ||= []
 
     if ajax? && params[:hack_idea_id]
       @hack_idea = HackIdea.find(params[:hack_idea_id])
-      @hack_idea.rate(myself,session[:domain_log_session][:id],params[:points].to_i > 0 ? 1 : -1)
+      @hack_idea.rate(myself,cookies[:v],params[:points].to_i > 0 ? 1 : -1)
       @hack_idea.reload
 
     else 
@@ -26,7 +29,7 @@ class Hack::PageRenderer < ParagraphRenderer
       session[:except] << @hack_idea.id if @hack_idea
     end
 
-    @vote = HackVote.fetch(@hack_idea.id,myself,session[:domain_log_session] && session[:domain_log_session][:id])
+    @vote = HackVote.fetch(@hack_idea.id,myself,cookies[:v])
   
     require_component_js
     render_paragraph :feature => :hack_page_rate
@@ -54,7 +57,7 @@ class Hack::PageRenderer < ParagraphRenderer
     # Any instance variables will be sent in the data hash to the 
     # hack_page_rate_feature automatically
     #
-    @vote = HackVote.fetch(@hack_idea.id,myself,session[:domain_log_session] && session[:domain_log_session][:id])
+    @vote = HackVote.fetch(@hack_idea.id,myself,cookies[:v])
   
     require_component_js
     render_paragraph :feature => :hack_page_view
@@ -62,12 +65,18 @@ class Hack::PageRenderer < ParagraphRenderer
 
   def submit
     @options = paragraph_options :submit
+    handle_image_upload(params[:hack_idea],:image_id)
 
-    @hack_idea = HackIdea.new()
+    @hack_idea = HackIdea.new(params[:hack_idea])
 
     if request.post? && params[:hack_idea]
-      @hack_idea.end_user_id = myself.id
-      if @hack_idea.update_attributes(params[:hack_idea])
+      if myself.id
+        @hack_idea.end_user_id = myself.id
+      elsif @hack_idea.email.present?
+        user = EndUser.push_target(@hack_idea.email)
+        @hack_idea.end_user_id = user.id if user
+      end
+      if @hack_idea.save
         @submitted = true
       end
     end

@@ -1,0 +1,16 @@
+<div class='admin_content'>
+  <% admin_form_for :hack_idea, @idea do |f| %>
+    <%= f.text_field :title,:size => 60 %>
+    <%= f.text_field :permalink,:size => 60 %>
+    <%= f.radio_buttons :weight, HackIdea.weight_select_options, :separator => "<br/>" %>
+    <%= f.custom_field :score, :value => @idea.score.to_s %>
+    <%= f.custom_field :votes, :value => @idea.votes.to_s %>
+    <%= f.text_area  :description, :rows => 10, :cols => 60 %>
+    <%= f.filemanager_image :image_id %>
+    <%= f.end_user_selector :end_user_id, :no_name =>  true, :label => 'User' %>
+    <%= f.text_field :category %>
+    <%= f.cancel_submit_buttons %>
+  <% end -%>
+
+
+</div>

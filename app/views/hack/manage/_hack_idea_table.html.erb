@@ -1,0 +1,16 @@
+
+<% active_table_for :hack_idea_table, @tbl,
+  :actions => [['Moderate Up','up'],['Moderate Down','down'], ['Never Show','hide']],
+  :more_actions => [['Delete','delete','Are you sure you want to delete the selected hack ideas?']] do |t| %>
+    <% active_tr 'hack_idea', t.id do |tr| %>
+      <td><%= tr.checkbox -%></td>
+      <td><%= link_to h(truncate(t.title)), :action => 'edit', :path => [ t.id ] %></td>
+      <td><%= t.score %></td>
+      <td><%= t.votes %></td>
+      <td><%= link_to h(t.end_user.email), :controller => '/members', :action => 'view', :path => t.end_user.id if t.end_user %></td>
+      <td><%= link_to h("/" + truncate(t.permalink.to_s,40)), "/hack/#{t.permalink}", :title => "/" + t.permalink.to_s %></td>
+      <td><%= t.created_at.strftime(Configuration.datetime_format) %></td>
+      <td><%= t.weight_display %></td>
+      <td><%= h t.category %></td>
+    <% end -%>
+<% end -%>
