@@ -65,7 +65,7 @@ class Hack::PageRenderer < ParagraphRenderer
 
   def submit
     @options = paragraph_options :submit
-    handle_image_upload(params[:hack_idea],:image_id)
+    handle_image_upload(params[:hack_idea],:image_id) if params[:hack_idea]
 
     @hack_idea = HackIdea.new(params[:hack_idea])
 
