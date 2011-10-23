@@ -13,6 +13,7 @@ class Hack::ManageController < ModuleController
   active_table :hack_idea_table,
                 HackIdea,
                 [ :check,
+                  :check,
                   :title,
                   :score,
                   :votes,
@@ -47,7 +48,7 @@ class Hack::ManageController < ModuleController
 
 
   def index
-    cms_page_path ['Content'], 'User Reviews'
+    cms_page_path ['Content'], 'Hack Ideas'
     display_hack_idea_table(false)
   end
 

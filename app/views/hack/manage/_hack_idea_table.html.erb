@@ -4,6 +4,7 @@
   :more_actions => [['Delete','delete','Are you sure you want to delete the selected hack ideas?']] do |t| %>
     <% active_tr 'hack_idea', t.id do |tr| %>
       <td><%= tr.checkbox -%></td>
+      <td><%=  link_to image_tag(t.image.url(:icon)), :action => 'edit', :path => [ t.id ]  if t.image -%></td>
       <td><%= link_to h(truncate(t.title)), :action => 'edit', :path => [ t.id ] %></td>
       <td><%= t.score %></td>
       <td><%= t.votes %></td>
