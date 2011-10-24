@@ -42,7 +42,7 @@ class Hack::PageRenderer < ParagraphRenderer
 
     if ajax? && params[:hack_idea_id]
       @hack_idea = HackIdea.find(params[:hack_idea_id])
-      @hack_idea.rate(myself,session[:domain_log_session][:id],params[:points].to_i > 0 ? 1 : -1)
+      @hack_idea.rate(myself,cookies[:v],params[:points].to_i > 0 ? 1 : -1)
       @hack_idea.reload
     else 
       @hack_idea = HackIdea.find_by_permalink(conn_id)
