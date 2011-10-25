@@ -89,6 +89,9 @@ class Hack::PageFeature < ParagraphFeature
     <ol class='form'>
     <li><label>Title</label><cms:title/></li>
     <li><label>Description</label><cms:description/></li>
+    <li><label>Category (Optional)</label><cms:category/></li>
+    <li><label>Email (Optional)</label><cms:email/></li>
+    <li><label>Image (Optional)</label><cms:image_id/></li>
     <li><cms:submit/></li>
   </cms:hack_idea>
   <cms:submitted>
@@ -98,12 +101,14 @@ class Hack::PageFeature < ParagraphFeature
 
   def hack_page_submit_feature(data)
     webiva_feature(:hack_page_submit,data) do |c|
-      c.form_for_tag('hack_idea','hack_idea') { |t| data[:submitted] ? nil : data[:hack_idea] }
+      c.form_for_tag('hack_idea','hack_idea', :html => { :method => 'post', :enctype => 'multipart/form-data' }) { |t| data[:submitted] ? nil : data[:hack_idea] }
 
       c.field_tag('hack_idea:title')
       c.field_tag('hack_idea:description', :control => :text_area)
+      c.field_tag('hack_idea:email')
+      c.field_tag('hack_idea:category')
       c.submit_tag('submit')
-
+      c.field_tag('hack_idea:image_id',:control => 'upload_image')
       c.expansion_tag('submitted') { |t| data[:submitted] }
 
 

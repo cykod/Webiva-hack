@@ -10,6 +10,10 @@ class Hack::AdminController < ModuleController
   register_permissions :hack, [ [ :manage, 'Manage Hack', 'Manage Hack' ],
                                   [ :config, 'Configure Hack', 'Configure Hack' ]
                                   ]
+
+  content_model :hack_ideas
+
+
   cms_admin_paths "options",
      "Hack Options" => { :action => 'index' },
      "Options" => { :controller => '/options' },
@@ -18,7 +22,12 @@ class Hack::AdminController < ModuleController
   permit 'hack_config'
 
   public 
- 
+  def self.get_hack_ideas_info
+    [{ :name => 'Hack Ideas', :url => { :controller => '/hack/manage', :action => 'index' }, :permission => :hack_manage }
+     ]
+  end
+
+
   def options
     cms_page_path ['Options','Modules'],"Hack Options"
     
