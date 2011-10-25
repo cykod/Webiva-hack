@@ -36,7 +36,8 @@ class Hack::PageController < ParagraphController
 
   class ViewOptions < HashModel
     # Paragraph Options
-    # attributes :hack_page_id => nil
+    attributes :hack_page_id => nil
+    page_options :hack_page_id
 
     options_form(
                  fld(:hack_page_id, :page_selector) # <attribute>, <form element>, <options>
