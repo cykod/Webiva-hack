@@ -77,6 +77,7 @@ class Hack::PageRenderer < ParagraphRenderer
   end
 
   def list
+    @options = paragraph_options :list
     @hack_ideas = HackIdea.find(:all,:order => 'score DESC',:limit => 10)
 
     render_paragraph :feature => :hack_page_list
