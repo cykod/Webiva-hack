@@ -4,11 +4,14 @@ class Categories < ActiveRecord::Migration
       t.string :name
       t.integer :weight
     end
-    add_column :hack_category_id, :integer
+    create_table :hack_category_votes do |t|
+      t.integer :hack_category_id
+      t.integer :hack_vote_id
+    end
   end
 
   def self.down
     drop_table :hack_categories
-    remove_column :hack_category_id
+    drop_table :hack_category_votes
   end
 end

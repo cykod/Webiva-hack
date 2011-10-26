@@ -25,12 +25,13 @@ class Hack::PageController < ParagraphController
 
   class ListOptions < HashModel
     # Paragraph Options
-    attributes :hack_page_id => nil, :limit => 10
+    attributes :hack_page_id => nil, :limit => 10, :order => 'score'
     page_options :hack_page_id
 
     options_form(
                  fld(:hack_page_id, :page_selector),
-                 fld(:limit, :text_field)
+                 fld(:limit, :text_field),
+                 fld(:order, :select, :options => [[ 'Score', 'score'],['Newest','newest'],['Worst','worst']])
                  )
   end
 

@@ -19,7 +19,7 @@ class HackIdea < DomainModel
 
   def self.random_idea(except = [])
     except = except.compact
-    cnt = HackIdea.count
+    cnt = HackIdea.count(:all,:conditions => ['weight > -2'])
     if except.length == 0
       self.find(:first, :order=>'weight DESC',:conditions => ['weight > -2' ], :offset => rand(cnt))
     else
